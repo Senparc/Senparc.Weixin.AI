@@ -27,10 +27,11 @@ namespace Senparc.AI.Kernel.Helpers
             return kernel;
         }
 
-        public IKernel Config(string userId, string modelName, IKernel kernel=null) {
-        kernel ??= GetKernel();
+        public IKernel Config(string userId, string modelName, IKernel? kernel = null)
+        {
+            kernel ??= GetKernel();
 
-            var serviceId = GetServiceId(userId, modelName);    
+            var serviceId = GetServiceId(userId, modelName);
             var senparcAiSetting = Senparc.AI.Kernel.Config.SenparcAiSettings;
             switch (senparcAiSetting.AiPlatform)
             {
