@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.AI.Kernel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,16 +8,20 @@ namespace Senparc.AI.Kernel
     /// <summary>
     /// Senparc.AI.Kernel 基础配置
     /// </summary>
-    public class SenparcAiSettings
+    public class SenparcAiSetting
     {
         /// <summary>
-        /// 是否使用 Azure
+        /// 是否处于调试状态
         /// </summary>
-        public bool UserAzure { get; set; }
+        public bool IsDebug { get; set; }
+
         /// <summary>
         /// 是否使用 Azure OpenAI
         /// </summary>
-        public string UseAzureOpenAI { get; set; }
+        public bool UseAzureOpenAI => AiPlatform == AiPlatform.AzureOpenAI;
+
+        public AiPlatform AiPlatform { get; set; }
+
         /// <summary>
         /// Azure OpenAI Endpoint
         /// </summary>
@@ -30,6 +35,7 @@ namespace Senparc.AI.Kernel
         /// </summary>
         public string OrgaizationId { get; set; }
 
-        public SenparcAiSettings() { }
+
+        public SenparcAiSetting() { }
     }
 }

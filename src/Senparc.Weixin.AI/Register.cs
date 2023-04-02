@@ -14,24 +14,6 @@ namespace Senparc.Weixin.AI
     public static class Register
     {
 
-        /// <summary>
-        /// 注册
-        /// </summary>
-        /// <param name="registerService"></param>
-        /// <param name="senparcAiSetting"></param>
-        /// <returns></returns>
-        public static IRegisterService UseSenparcAI(this IRegisterService registerService, SenparcAiSettings senparcAiSetting = null)
-        {
-            if (senparcAiSetting == null)
-            {
-                global::Senparc.AI.Kernel.Config.SenparcAiSettings ??= new SenparcAiSettings();
-            }
-            else
-            {
-                global::Senparc.AI.Kernel.Config.SenparcAiSettings = senparcAiSetting;
-            }
-
-            return registerService;
-        }
+        
     }
 }

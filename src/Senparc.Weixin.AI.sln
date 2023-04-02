@@ -17,23 +17,32 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Test|Any CPU = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Test|Any CPU.Build.0 = Test|Any CPU
 		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Test|Any CPU.Build.0 = Test|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Test|Any CPU.Build.0 = Test|Any CPU
 		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Test|Any CPU.Build.0 = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

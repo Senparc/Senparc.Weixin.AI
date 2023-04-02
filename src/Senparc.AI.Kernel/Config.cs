@@ -8,12 +8,12 @@
         /// <summary>
         /// 当前配置
         /// </summary>
-        public static SenparcAiSettings SenparcAiSettings { get; set; }
+        public static SenparcAiSetting SenparcAiSettings { get; set; }
 
         static Config()
         {
             //初始化 SenaprcAiSettings
-            SenparcAiSettings = new SenparcAiSettings();
+            SenparcAiSettings = new SenparcAiSetting();
         }
     }
 }
