@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.AI", "Senparc.Weixin.AI\Senparc.Weixin.AI.csproj", "{2C89E390-4133-4075-B6FC-ABD40A00440C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.AI.Tests", "Senparc.Weixin.AI.Tests\Senparc.Weixin.AI.Tests.csproj", "{1719DB29-76FB-4070-90CA-749F0CE0CA59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E892F45B-7C63-4C1C-9F53-ABA5CBFA95C6}
+	EndGlobalSection
+EndGlobal

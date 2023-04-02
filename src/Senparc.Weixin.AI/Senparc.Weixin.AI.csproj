@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<Version>0.1.0-beta</Version>
+		<AssemblyName>Senparc.Weixin.AI</AssemblyName>
+		<RootNamespace>Senparc.Weixin.AI</RootNamespace>
+		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+		<Description>
+			Senparc.Weixin SDK 的 AI 扩展，赋能微信各生态应用应用基于 OpenAI API、ChatGPT 等 AIGC 能力。包括：公众号、小程序、企业微信、微信支付等平台。
+			https://github.com/Senparc/Senparc.Weixin.AI
+		</Description>
+		<Copyright>Senparc Copyright © 2004~2023</Copyright>
+		<PackageTags>
+			AI,微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,AIGC,AGI,LLM,
+			emantic-kernel
+		</PackageTags>
+		<Authors>Jeffrey Su</Authors>
+		<Owners>Senparc</Owners>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<ProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</ProjectUrl>
+		<Title>Senparc.Weixin.AI.dll</Title>
+		<Summary>Senparc.Weixin SDK 的 AI 扩展</Summary>
+		<PackageProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</PackageProjectUrl>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReleaseNotes>
+			v0.1.0 创世
+			
+		</PackageReleaseNotes>
+		<RepositoryUrl>https://github.com/Senparc/Senparc.Weixin.AI</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+		<OutputPath>..\..\BuildOutPut\</OutputPath>
+		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.AI.xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+
+		<PackageReference Include="Senparc.Weixin" Version="6.15.8.7" />
+
+		<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />
+	</ItemGroup>
+</Project>

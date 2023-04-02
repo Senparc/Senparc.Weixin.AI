@@ -50,5 +50,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-/.vs
+.vs/
+bin/
+obj/
+.user
 /BuildOutPut
