@@ -33,7 +33,11 @@ namespace Senparc.AI.Kernel.Tests
             var serviceCollection = new ServiceCollection();
 
             var configBuilder = new ConfigurationBuilder();
-            configBuilder.AddJsonFile("appsettings.json", false, false);
+
+            var testFile = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.AppDomainAppPath, "appsettings.test.json");
+            var appsettingFileName = File.Exists(testFile) ? "appsettings.test.json" : "appsettings.json";
+
+            configBuilder.AddJsonFile(appsettingFileName, false, false);
             var config = configBuilder.Build();
             serviceCollection.AddSenparcGlobalServices(config);
 

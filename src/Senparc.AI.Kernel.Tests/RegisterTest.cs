@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.CO2NET.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,9 @@ namespace Senparc.AI.Kernel.Tests
             Assert.IsNotNull(senparcAiSetting);
             Assert.AreEqual(AiPlatform.AzureOpenAI, senparcAiSetting.AiPlatform);
             Assert.AreEqual(true, senparcAiSetting.UseAzureOpenAI);
-            Assert.AreEqual("https://xxx", senparcAiSetting.AzureEndpoint);
-            Assert.AreEqual("YourKey", senparcAiSetting.ApiKey);
-            Assert.AreEqual("YourOrgId", senparcAiSetting.OrgaizationId);
+            Assert.IsFalse(senparcAiSetting.AzureEndpoint.IsNullOrEmpty());
+            Assert.IsFalse(senparcAiSetting.ApiKey.IsNullOrEmpty());
+            Assert.IsFalse(senparcAiSetting.OrgaizationId.IsNullOrEmpty());
         }
     }
 }
