@@ -40,7 +40,4 @@
 		<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />
 		<PackageReference Include="Senparc.CO2NET" Version="2.1.7.3" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Helpers\" />
-	</ItemGroup>
 </Project>
