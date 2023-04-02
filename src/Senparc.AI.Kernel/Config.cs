@@ -1,14 +1,9 @@
-﻿using Senparc.AI.Kernel;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Senparc.AI.Kernel
+﻿namespace Senparc.AI.Kernel
 {
     /// <summary>
     /// Senparc.AI.Kernel 配置
     /// </summary>
-    public class Config
+    public static class Config
     {
         /// <summary>
         /// 当前配置

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.Weixin.AI.Senparc.AI.Kernel.Exceptions
+namespace Senparc.AI.Kernel.Exceptions
 {
     /// <summary>
     /// SenparcAI 异常

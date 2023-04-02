@@ -22,10 +22,14 @@ namespace Senparc.Weixin.AI
         /// <returns></returns>
         public static IRegisterService UseSenparcAI(this IRegisterService registerService, SenparcAiSettings senparcAiSetting = null)
         {
-            Senparc.AI.Kernel.Config.SenparcAiSettings
-                = senparcAiSetting ??
-                    Senparc.AI.Kernel.Config.SenparcAiSettings ??
-                        new SenparcAiSettings();
+            if (senparcAiSetting == null)
+            {
+                global::Senparc.AI.Kernel.Config.SenparcAiSettings ??= new SenparcAiSettings();
+            }
+            else
+            {
+                global::Senparc.AI.Kernel.Config.SenparcAiSettings = senparcAiSetting;
+            }
 
             return registerService;
         }

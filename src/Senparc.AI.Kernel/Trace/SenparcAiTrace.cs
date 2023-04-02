@@ -26,13 +26,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.AI.Kernel.Exceptions;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
-using Senparc.Weixin.AI.Senparc.AI.Kernel.Exceptions;
 using System;
 using System.IO;
 
-namespace Senparc.Weixin
+namespace Senparc.AI.Kernel
 {
     /// <summary>
     /// 微信日志跟踪
@@ -76,7 +76,7 @@ namespace Senparc.Weixin
         /// <param name="ex"></param>
         public static void SenparcAiExceptionLog(SenparcAiException ex)
         {
-            if (!Config.IsDebug)
+            if (!Senparc.CO2NET.Config.IsDebug)
             {
                 return;
             }

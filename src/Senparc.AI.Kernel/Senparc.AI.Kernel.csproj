@@ -12,14 +12,14 @@
 		</Description>
 		<Copyright>Senparc Copyright © 2004~2023</Copyright>
 		<PackageTags>
-			Senparc,AI,Kernel,
+			Senparc,AI,Kernel,C#,AIGC,AGI,LLM,emantic-kernel
 		</PackageTags>
 		<Authors>Jeffrey Su</Authors>
 		<Owners>Senparc</Owners>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<ProjectUrl>https://github.com/Senparc/Senaprc.AI.Kernel</ProjectUrl>
 		<Title>Senaprc.AI.Kernel.dll</Title>
-		<Summary>Senparc.Weixin SDK 的 AI 扩展</Summary>
+		<Summary>Senparc.AI 核心模块</Summary>
 		<PackageProjectUrl>https://github.com/Senparc/Senaprc.AI.Kernel</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReleaseNotes>
@@ -36,12 +36,7 @@
 		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
-
-		<PackageReference Include="Senparc.Weixin" Version="6.15.8.7" />
-
 		<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Senparc.Ai.Kernel\Senparc.Ai.Kernel.csproj" />
+		<PackageReference Include="Senparc.CO2NET" Version="2.1.7.3" />
 	</ItemGroup>
 </Project>

@@ -13,8 +13,7 @@
 		</Description>
 		<Copyright>Senparc Copyright © 2004~2023</Copyright>
 		<PackageTags>
-			AI,微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,AIGC,AGI,LLM,
-			emantic-kernel
+			AI,微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,AIGC,AGI,LLM,emantic-kernel
 		</PackageTags>
 		<Authors>Jeffrey Su</Authors>
 		<Owners>Senparc</Owners>
@@ -41,6 +40,9 @@
 
 		<PackageReference Include="Senparc.Weixin" Version="6.15.8.7" />
 
-		<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />
+		<!--<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />-->
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Senparc.AI.Kernel\Senparc.AI.Kernel.csproj" />
 	</ItemGroup>
 </Project>
