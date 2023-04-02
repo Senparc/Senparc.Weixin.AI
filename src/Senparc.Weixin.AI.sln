@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.AI.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.AI.Kernel", "Senparc.AI.Kernel\Senparc.AI.Kernel.csproj", "{8E401865-8613-40F5-ABBC-43B6A05CA5EF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{52CD3E2F-D7FA-458F-A0DF-FF69F3684AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.AI.Kernel.Tests", "Senparc.AI.Kernel.Tests\Senparc.AI.Kernel.Tests.csproj", "{28239B20-15A7-451E-8F84-DC93893BC2CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +30,17 @@ Global
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E401865-8613-40F5-ABBC-43B6A05CA5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28239B20-15A7-451E-8F84-DC93893BC2CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59} = {52CD3E2F-D7FA-458F-A0DF-FF69F3684AA0}
+		{28239B20-15A7-451E-8F84-DC93893BC2CD} = {52CD3E2F-D7FA-458F-A0DF-FF69F3684AA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E892F45B-7C63-4C1C-9F53-ABA5CBFA95C6}
