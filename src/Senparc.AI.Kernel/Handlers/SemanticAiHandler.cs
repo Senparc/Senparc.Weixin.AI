@@ -1,7 +1,7 @@
 using Senparc.AI.Interfaces;
 using Senparc.AI.Kernel;
 
-namespace Senparc.Ai.Kernel
+namespace Senparc.AI.Kernel
 {
     public class SemanticAiHandler : IAiHandler<SenparcAiResult>
     {
@@ -9,7 +9,10 @@ namespace Senparc.Ai.Kernel
         {
         }
 
-
+        public SenparcAiResult Run(IAiRequest request)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }

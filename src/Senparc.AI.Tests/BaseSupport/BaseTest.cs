@@ -20,11 +20,17 @@ namespace Senparc.AI.Tests
         protected static SenparcSetting _senparcSetting;
         protected static ISenparcAiSetting _senparcAiSetting;
 
-        public BaseTest()
+
+        public BaseTest(Action<IRegisterService> registerAction)
         {
             RegisterServiceCollection();
 
-            RegisterServiceStart();
+            RegisterServiceStart(registerAction);
+        }
+
+        public BaseTest() : this(null)
+        {
+
         }
 
         /// <summary>
@@ -46,7 +52,7 @@ namespace Senparc.AI.Tests
             _senparcSetting = new SenparcSetting() { IsDebug = true };
             config.GetSection("SenparcSetting").Bind(_senparcSetting);
 
-            _senparcAiSetting =  new MockSenparcAiSetting() { IsDebug = true };
+            _senparcAiSetting = new MockSenparcAiSetting() { IsDebug = true };
             config.GetSection("SenparcAiSetting").Bind(_senparcAiSetting);
 
             serviceCollection.AddMemoryCache();//Ê¹ÓÃÄÚ´æ»º´æ
@@ -57,7 +63,7 @@ namespace Senparc.AI.Tests
         /// <summary>
         /// ×¢²á RegisterService.Start()
         /// </summary>
-        public static void RegisterServiceStart(bool autoScanExtensionCacheStrategies = false)
+        public static void RegisterServiceStart(Action<IRegisterService> registerAction, bool autoScanExtensionCacheStrategies = false)
         {
             //×¢²á
             var mockEnv = new Mock<Microsoft.Extensions.Hosting.IHostEnvironment/*IHostingEnvironment*/>();
@@ -65,6 +71,9 @@ namespace Senparc.AI.Tests
 
             registerService = Senparc.CO2NET.AspNet.RegisterServices.RegisterService.Start(mockEnv.Object, _senparcSetting)
                 .UseSenparcGlobal(autoScanExtensionCacheStrategies);
+
+            registerAction?.Invoke(registerService);
+
 
             registerService.ChangeDefaultCacheNamespace("Senparc.AI Tests");
 

@@ -1,5 +1,5 @@
 using Senparc.AI.Interfaces;
-}
+
 namespace Senparc.AI.Kernel
 {
     public class SenparcAiResult : IAiResult
