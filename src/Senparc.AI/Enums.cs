@@ -6,6 +6,7 @@ namespace Senparc.AI
 {
     public enum AiPlatform
     {
+        UnSet = 0,
         OpenAI,
         AzureOpenAI
     }

@@ -26,8 +26,9 @@ namespace Senparc.AI
             {
                 throw new SenparcAiException($"参数 {nameof(senparcAiSetting)} 不能为 null！");
             }
-            else
-            {
+            else if (Config.SenparcAiSetting == null || Config.SenparcAiSetting.AiPlatform == AiPlatform.UnSet)
+            { 
+                //只在原始配置未设置的时候机型覆盖
                 Config.SenparcAiSetting = senparcAiSetting;
             }
 
