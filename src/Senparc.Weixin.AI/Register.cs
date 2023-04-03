@@ -4,7 +4,7 @@ using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Senparc.AI.Kernel;
+using Senparc.AI;
 
 namespace Senparc.Weixin.AI
 {

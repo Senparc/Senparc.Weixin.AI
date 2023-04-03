@@ -1,9 +1,13 @@
 ﻿using Senparc.AI.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Senparc.AI
+namespace Senparc.AI.Kernel.Tests.MockEntities
 {
-    /// <inheritdoc/>
-    public class SenparcAiSetting : ISenparcAiSetting
+    public class MockSenparcAiSetting:ISenparcAiSetting
     {
         /// <inheritdoc/>
         public bool IsDebug { get; set; }
@@ -22,8 +26,5 @@ namespace Senparc.AI
 
         /// <inheritdoc/>
         public string OrgaizationId { get; set; }
-
-
-        public SenparcAiSetting() { }
     }
 }

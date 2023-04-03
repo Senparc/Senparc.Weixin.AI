@@ -44,6 +44,6 @@
 		<!--<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />-->
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Senparc.AI.Kernel\Senparc.AI.Kernel.csproj" />
+	  <ProjectReference Include="..\Senparc.AI\Senparc.AI.csproj" />
 	</ItemGroup>
 </Project>

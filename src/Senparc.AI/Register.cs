@@ -1,10 +1,13 @@
-﻿using Senparc.AI.Kernel;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Senparc.AI.Exceptions;
+using Senparc.AI.Interfaces;
 using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.AI.Kernel
+namespace Senparc.AI
 {
     /// <summary>
     /// 注册 Senparc.AI
@@ -17,15 +20,15 @@ namespace Senparc.AI.Kernel
         /// <param name="registerService"></param>
         /// <param name="senparcAiSetting"></param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcAI(this IRegisterService registerService, SenparcAiSetting senparcAiSetting = null)
+        public static IRegisterService UseSenparcAI(this IRegisterService registerService, ISenparcAiSetting senparcAiSetting)
         {
             if (senparcAiSetting == null)
             {
-                Senparc.AI.Config.SenparcAiSetting ??= new SenparcAiSetting();
+                throw new SenparcAiException($"参数 {nameof(senparcAiSetting)} 不能为 null！");
             }
             else
             {
-                Senparc.AI.Config.SenparcAiSetting = senparcAiSetting;
+                Config.SenparcAiSetting = senparcAiSetting;
             }
 
             return registerService;

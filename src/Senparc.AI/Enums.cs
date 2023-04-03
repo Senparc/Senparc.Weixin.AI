@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.AI.Kernel
+namespace Senparc.AI
 {
     public enum AiPlatform
     {

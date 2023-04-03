@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Senparc.AI.Kernel.Tests
+namespace Senparc.AI.Tests
 {
     public static class UnitTestHelper
     {

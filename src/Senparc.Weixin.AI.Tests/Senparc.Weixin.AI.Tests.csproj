@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Senparc.Weixin.AI\Senparc.Weixin.AI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="新文件夹\" />
-  </ItemGroup>
-
 </Project>

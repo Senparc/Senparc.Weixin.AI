@@ -1,10 +1,11 @@
-﻿using Senparc.CO2NET.Exceptions;
+﻿using Senparc.AI.Trace;
+using Senparc.CO2NET.Exceptions;
 using Senparc.CO2NET.Trace;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.AI.Kernel.Exceptions
+namespace Senparc.AI.Exceptions
 {
     /// <summary>
     /// SenparcAI 异常

@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Senparc.AI.Interfaces;
+using Senparc.AI.Kernel.Tests.MockEntities;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 
-namespace Senparc.AI.Kernel.Tests
+namespace Senparc.AI.Tests
 {
     //[TestClass]
     public class BaseTest
@@ -16,7 +18,7 @@ namespace Senparc.AI.Kernel.Tests
         public static IServiceProvider serviceProvider;
         protected static IRegisterService registerService;
         protected static SenparcSetting _senparcSetting;
-        protected static SenparcAiSetting _senparcAiSetting;
+        protected static ISenparcAiSetting _senparcAiSetting;
 
         public BaseTest()
         {
@@ -44,7 +46,7 @@ namespace Senparc.AI.Kernel.Tests
             _senparcSetting = new SenparcSetting() { IsDebug = true };
             config.GetSection("SenparcSetting").Bind(_senparcSetting);
 
-            _senparcAiSetting = new SenparcAiSetting() { IsDebug = true };
+            _senparcAiSetting =  new MockSenparcAiSetting() { IsDebug = true };
             config.GetSection("SenparcAiSetting").Bind(_senparcAiSetting);
 
             serviceCollection.AddMemoryCache();//Ê¹ÓÃÄÚ´æ»º´æ
