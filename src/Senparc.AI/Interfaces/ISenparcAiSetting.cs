@@ -20,6 +20,9 @@ namespace Senparc.AI.Interfaces
         /// </summary>
         public bool UseAzureOpenAI => AiPlatform == AiPlatform.AzureOpenAI;
 
+        /// <summary>
+        /// AI 平台类型
+        /// </summary>
         public AiPlatform AiPlatform { get; set; }
 
         /// <summary>
