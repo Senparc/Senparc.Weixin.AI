@@ -6,5 +6,7 @@ namespace Senparc.AI.Interfaces
 {
     public interface IAiRequest
     {
+        
+        string Request { get; set; }
     }
 }

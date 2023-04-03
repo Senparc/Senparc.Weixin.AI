@@ -19,16 +19,8 @@ namespace Senparc.AI.Kernel
         /// <returns></returns>
         public static IRegisterService UseSenparcAI(this IRegisterService registerService, SenparcAiSetting senparcAiSetting = null)
         {
-            if (senparcAiSetting == null)
-            {
-                Senparc.AI.Config.SenparcAiSetting ??= new SenparcAiSetting();
-            }
-            else
-            {
-                Senparc.AI.Config.SenparcAiSetting = senparcAiSetting;
-            }
-
-            return registerService;
+            senparcAiSetting ??= new SenparcAiSetting();
+            return Senparc.AI.Register.UseSenparcAI(registerService, senparcAiSetting);
         }
     }
 }
