@@ -57,3 +57,4 @@ obj/
 /BuildOutPut
 /src/Senparc.AI.Kernel.Tests/appsettings.test.json
 .DS_Store
+/src/Senparc.Weixin.AI.Tests/appsettings.test.json
