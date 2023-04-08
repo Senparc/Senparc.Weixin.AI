@@ -2,8 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
+		<Version>0.1.0-beta1</Version>
 		<Nullable>enable</Nullable>
-		<Version>0.1.0-beta</Version>
+		<LangVersion>10.0</LangVersion>
 		<AssemblyName>Senparc.Weixin.AI</AssemblyName>
 		<RootNamespace>Senparc.Weixin.AI</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -35,9 +36,41 @@
 		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.AI.xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json" />
+	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt" />
+	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json" />
+	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt" />
+	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json" />
+	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
 		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
+
+		<PackageReference Include="Senparc.AI" Version="0.1.0-beta1" />
+
+		<PackageReference Include="Senparc.AI.Kernel" Version="0.1.0-beta1" />
 
 		<PackageReference Include="Senparc.Weixin" Version="6.15.8.7" />
 

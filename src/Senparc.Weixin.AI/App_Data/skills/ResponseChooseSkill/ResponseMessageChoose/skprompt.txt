@@ -1,0 +1,25 @@
+The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.
+
+{{$user}}I have a question. Can you help? 
+{{$bot}}Of course. I am your AI Copilot. Go on!
+{{$history}}
+{{$user}}{{$input}}
+{{$bot}}
+
+Determine the type of message that should be returned based on the input information.
+
+There are two types of message:
+ResponseMessageText: just need return text, without image
+ResponseMessageImage: need to generate image
+
+just answer the type's name, without anyother word.
+
+{{$user}}What's the mean of animal?
+{{$bot}}ResponseMessageText
+
+{{$user}}can you draw an animal for me?
+{{$bot}}ResponseMessageImage
+
+Now tell me the message type:
+{{$input}}
+
