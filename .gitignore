@@ -56,3 +56,4 @@ obj/
 .user
 /BuildOutPut
 /src/Senparc.AI.Kernel.Tests/appsettings.test.json
+.DS_Store
