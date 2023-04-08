@@ -4,6 +4,7 @@ using Senparc.AI;
 using Senparc.AI.Interfaces;
 using Senparc.AI.Kernel.Handlers;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.AI.WeixinSkills;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +30,12 @@ namespace Senparc.Weixin.AI
 
             var skillsDirectory = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/skills");/* Path.Combine(dir, "..", "..", "..", "skills");*/
             await Console.Out.WriteLineAsync("skillsDirectory:" + skillsDirectory);
-            iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill");
+            //iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill");
+            iWantToRun.ImportSkill(new SenparcWeixinSkills(iWantToRun.Kernel), "BuildResponseMessage");
 
             //var ask = "I want to know which program language is the best one?";
 
-            var request = iWantToRun.CreateRequest(text, planner["CreatePlan"]);
+            var request = iWantToRun.CreateRequest(text, true, false, planner["CreatePlan"]);
             var originalPlan = await iWantToRun.RunAsync(request);
 
             var plannResult = originalPlan.Result.Variables.ToPlan().PlanString;
