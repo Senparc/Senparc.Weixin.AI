@@ -4,18 +4,16 @@ There are two types of message:
 - ResponseMessageText: just need return text, without image required. The Result parameter will be returned as a ChatBot's reply.
 - ResponseMessageImage: need to generate image. The Result parameter will give a better prompt to generate a image by general image generate engine.
 
-Just output the type's name with one word, without any minor word.
-
 Example:
 
 Input: What's the mean of animal?
 Output: {"MessageType":"ResponseMessageText", "Result":"The word \"animal\" is a broad term that refers to living organisms that are not plants or fungi, and it encompasses a wide range of species with diverse characteristics. Therefore, it is not possible to calculate a mean for the term "animal" as it is not a numerical value or a quantitative measure."}
 
 Input: Give me an image shows the spring of China.
-Output: {"MessageType":"ResponseMessageImage", Result:"Generate a high-quality and visually stunning image that depicts the beauty of spring in China, with a focus on blooming flowers, lush green landscapes, and perhaps a cultural or historical element such as a traditional Chinese garden or temple."}
+Output: {"MessageType":"ResponseMessageImage", "Result":"Generate a high-quality and visually stunning image that depicts the beauty of spring in China, with a focus on blooming flowers, lush green landscapes, and perhaps a cultural or historical element such as a traditional Chinese garden or temple."}
 
 # done
 
 Now tell me the follow message's output:
 {{$input}}
-
+The Output is JSON format.

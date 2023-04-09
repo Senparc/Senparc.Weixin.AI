@@ -8,6 +8,7 @@ using Senparc.Weixin.AI.WeixinSkills;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Senparc.Weixin.AI
 {
     public class ReponseMessageFactory
     {
-        public async Task<string> GetResponseMessageAsync(IAiHandler aiHandler, string openId, string text)
+        public async Task<string> GetResponseMessageByPlanAsync(IAiHandler aiHandler, string openId, string text)
         {
             var skAiHandler = aiHandler as Senparc.AI.Kernel.SemanticAiHandler;
             var iWantToRun = skAiHandler
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.AI
 
             var skillsDirectory = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/skills");/* Path.Combine(dir, "..", "..", "..", "skills");*/
             await Console.Out.WriteLineAsync("skillsDirectory:" + skillsDirectory);
-            //iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill");
+           //var skillList = iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill").skillList;
             iWantToRun.ImportSkill(new SenparcWeixinSkills(iWantToRun.Kernel), "BuildResponseMessage");
 
             //var ask = "I want to know which program language is the best one?";
@@ -82,5 +83,36 @@ namespace Senparc.Weixin.AI
             return messageType;
         }
 
+
+        public async Task<string> GetResponseMessageAsync(IAiHandler aiHandler, string openId, string text)
+        {
+            var skAiHandler = aiHandler as Senparc.AI.Kernel.SemanticAiHandler;
+            var iWantToRun = skAiHandler
+                             .IWantTo()
+                             .ConfigModel(ConfigModel.TextCompletion, openId, "text-davinci-003")
+                             .BuildKernel();
+
+            var dir = System.IO.Directory.GetCurrentDirectory();
+            await Console.Out.WriteLineAsync("dir:" + dir);
+
+
+            var skillsDirectory = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/skills");/* Path.Combine(dir, "..", "..", "..", "skills");*/
+            await Console.Out.WriteLineAsync("skillsDirectory:" + skillsDirectory);
+            var skillList = iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill").skillList;
+            //iWantToRun.ImportSkill(new SenparcWeixinSkills(iWantToRun.Kernel), "BuildResponseMessage");
+
+            //var ask = "I want to know which program language is the best one?";
+
+            var request = iWantToRun.CreateRequest(text, true, false, skillList.Values.ToArray()/*planner["CreatePlan"]*/);
+            var result = await iWantToRun.RunAsync(request);
+
+            string messageType = "UnKnow";
+            if (result.Output.Length>0)
+            {
+                messageType = result.Output;
+            }
+
+            return messageType;
+        }
     }
 }

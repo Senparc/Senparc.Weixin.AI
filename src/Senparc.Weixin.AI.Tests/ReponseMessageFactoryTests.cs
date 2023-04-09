@@ -17,7 +17,7 @@ namespace Senparc.Weixin.AI.Tests
     public class ReponseMessageFactoryTests : KernelTestBase
     {
         [TestMethod()]
-        public async Task GetResponseMessageTest()
+        public async Task GetResponseMessageByPlanTest()
         {
             var serviceProvider = BaseTest.serviceProvider;
             var handler = serviceProvider.GetRequiredService<IAiHandler>()
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.AI.Tests
 
             var text = "I want to know which program language is the best one?";
             await Console.Out.WriteLineAsync("ASK: "+ text);
-            var responseMessageType = await factory.GetResponseMessageAsync(handler, openId, text);
+            var responseMessageType = await factory.GetResponseMessageByPlanAsync(handler, openId, text);
             //Assert.AreEqual("ResponseMessageText", responseMessageType.Trim());
             Assert.IsFalse(responseMessageType.IsNullOrEmpty());
             await Console.Out.WriteLineAsync();
@@ -39,6 +39,34 @@ namespace Senparc.Weixin.AI.Tests
             responseMessageType = await factory.GetResponseMessageAsync(handler, openId, text);
             Assert.IsFalse(responseMessageType.IsNullOrEmpty());
             //Assert.AreEqual("ResponseMessageImage", responseMessageType.Trim());
+            await Console.Out.WriteLineAsync();
+        }
+
+        [TestMethod()]
+        public async Task GetResponseMessageTest()
+        {
+            var serviceProvider = BaseTest.serviceProvider;
+            var handler = serviceProvider.GetRequiredService<IAiHandler>()
+                            as SemanticAiHandler;
+
+            var openId = "JeffreySu";
+
+            var factory = new ReponseMessageFactory();
+
+            var text = "I want to know which program language is the best one?";
+            await Console.Out.WriteLineAsync("ASK: " + text);
+            var responseMessageType = await factory.GetResponseMessageAsync(handler, openId, text);
+            //Assert.AreEqual("ResponseMessageText", responseMessageType.Trim());
+            Assert.IsFalse(responseMessageType.IsNullOrEmpty());
+            await Console.Out.WriteLineAsync("RETURN: "+responseMessageType);
+            await Console.Out.WriteLineAsync();
+
+            text = "Create a logo picture with black ground, looks like a plan, show it's power.";
+            await Console.Out.WriteLineAsync("ASK: " + text);
+            responseMessageType = await factory.GetResponseMessageAsync(handler, openId, text);
+            Assert.IsFalse(responseMessageType.IsNullOrEmpty());
+            //Assert.AreEqual("ResponseMessageImage", responseMessageType.Trim());
+            await Console.Out.WriteLineAsync("RETURN: "+responseMessageType);
             await Console.Out.WriteLineAsync();
         }
     }
