@@ -58,3 +58,5 @@ obj/
 /src/Senparc.AI.Kernel.Tests/appsettings.test.json
 .DS_Store
 /src/Senparc.Weixin.AI.Tests/appsettings.test.json
+/Samples/Senparc.Weixin.AI.MPSample/appsettings.test.json
+/Samples/Senparc.Weixin.AI.MPSample/appsettings.json
