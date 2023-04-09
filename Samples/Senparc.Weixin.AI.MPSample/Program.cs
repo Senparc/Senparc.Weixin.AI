@@ -7,38 +7,36 @@ using Senparc.Weixin.RegisterServices;
 var builder = WebApplication.CreateBuilder(args);
 
 
-//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+//ä½¿ç”¨æœ¬åœ°ç¼“å­˜å¿…é¡»æ·»åŠ 
 builder.Services.AddMemoryCache();
 
-#region Ìí¼ÓÎ¢ĞÅÅäÖÃ£¨Ò»ĞĞ´úÂë£©
+#region æ·»åŠ å¾®ä¿¡é…ç½®ï¼ˆä¸€è¡Œä»£ç ï¼‰
 
-//Senparc.Weixin ×¢²á£¨±ØĞë£©
+//Senparc.Weixin æ³¨å†Œï¼ˆå¿…é¡»ï¼‰
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 #endregion
 
 var app = builder.Build();
 
-#region ÆôÓÃÎ¢ĞÅÅäÖÃ£¨Ò»¾ä´úÂë£©
+#region å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆä¸€å¥ä»£ç ï¼‰
 
-//ÊÖ¶¯»ñÈ¡ÅäÖÃĞÅÏ¢¿ÉÊ¹ÓÃÒÔÏÂ·½·¨
-//var senparcWeixinSetting = app.Services.GetService<IOptions<SenparcWeixinSetting>>()!.Value;
-
-//ÆôÓÃÎ¢ĞÅÅäÖÃ£¨±ØĞë£©
+//å¯ç”¨å¾®ä¿¡é…ç½®ï¼ˆå¿…é¡»ï¼‰
 var registerService = app.UseSenparcWeixin(app.Environment,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacSetting ÅäÖÃ*/,
-    null /* ²»Îª null Ôò¸²¸Ç appsettings  ÖĞµÄ SenpacWeixinSetting ÅäÖÃ*/,
-    register => { /* CO2NET È«¾ÖÅäÖÃ */ },
+    null, null,
+    register => { /* CO2NET å…¨å±€é…ç½® */ },
     (register, weixinSetting) =>
     {
-        //×¢²á¹«ÖÚºÅĞÅÏ¢£¨¿ÉÒÔÖ´ĞĞ¶à´Î£¬×¢²á¶à¸ö¹«ÖÚºÅ£©
-        register.RegisterMpAccount(weixinSetting, "ÎÒµÄ¹«ÖÚºÅ");
+        //æ³¨å†Œå…¬ä¼—å·ä¿¡æ¯ï¼ˆå¯ä»¥æ‰§è¡Œå¤šæ¬¡ï¼Œæ³¨å†Œå¤šä¸ªå…¬ä¼—å·ï¼‰
+        register.RegisterMpAccount(weixinSetting, "æˆ‘çš„å…¬ä¼—å·");
     });
 
-#region Ê¹ÓÃ MessageHadler ÖĞ¼ä¼ş£¬ÓÃÓÚÈ¡´ú´´½¨¶ÀÁ¢µÄ Controller
+#endregion
 
-//MessageHandler ÖĞ¼ä¼ş½éÉÜ£ºhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
-//Ê¹ÓÃ¹«ÖÚºÅµÄ MessageHandler ÖĞ¼ä¼ş£¨²»ÔÙĞèÒª´´½¨ Controller£©
+#region ä½¿ç”¨ MessageHadler ä¸­é—´ä»¶ï¼Œç”¨äºå–ä»£åˆ›å»ºç‹¬ç«‹çš„ Controller
+
+//MessageHandler ä¸­é—´ä»¶ä»‹ç»ï¼šhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+//ä½¿ç”¨å…¬ä¼—å·çš„ MessageHandler ä¸­é—´ä»¶ï¼ˆä¸å†éœ€è¦åˆ›å»º Controllerï¼‰
 app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
 {
     options.AccountSettingFunc = context => Senparc.Weixin.Config.SenparcWeixinSetting;
@@ -46,9 +44,7 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 
 #endregion
 
-#endregion
 
-
-app.MapGet("/", () => "»¶Ó­Ê¹ÓÃ Senparc.AI + Senparc.Weixin !");
+app.MapGet("/", () => "æ¬¢è¿ä½¿ç”¨ Senparc.AI + Senparc.Weixin !");
 
 app.Run();

@@ -104,7 +104,9 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            throw new NotImplementedException();
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = DEFAULT_MESSAGE;
+            return responseMessage;
         }
     }
 }
