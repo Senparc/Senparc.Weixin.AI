@@ -65,3 +65,4 @@ obj/
 /Samples/Senparc.Weixin.AI.MPSample/Properties/PublishProfiles
 /Samples/Senparc.Weixin.AI.MPSample/Properties/ServiceDependencies/SenparcWeixinAIMPSample20230409175131 - Web Deploy
 *.user
+/Samples/Senparc.AI.Samples.Consoles/appsettings.test.json
