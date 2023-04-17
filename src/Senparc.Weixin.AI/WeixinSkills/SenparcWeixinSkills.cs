@@ -37,7 +37,7 @@ Output: {""MessageType"":""ResponseMessageImage"", ""Result"":""Generate a high-
 
 Now tell me the follow message's output:
 {{$input}}
-The Output is JSON format.
+The original Output is JSON format, I want to get an XML format result, do the parse first. Just left JSON information without any other 'appendToResult' information.
 ";
 
         public SenparcWeixinSkills(IKernel kernel)

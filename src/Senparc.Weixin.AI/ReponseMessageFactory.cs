@@ -174,14 +174,16 @@ namespace Senparc.Weixin.AI
                         {
                             _ = CustomApi.SendTextAsync(appId, openId, $"已收到请求，请等待约 1 分钟");
 
-                            var iWantToRun = skAiHandler
-                                                .IWantTo()
-                                                .ConfigModel(ConfigModel.ImageGeneration, openId, "dalle")
-                                                .BuildKernel();
+                            _ = CustomApi.SendTextAsync(appId, openId, "图片Prompt：" + messageTypeResult.Result);
 
-                            var dallE = iWantToRun.Kernel.GetService<IImageGeneration>();
-                            var imageUrl = await dallE.GenerateImageAsync(messageTypeResult.Result, 256, 256);
-                            _ = CustomApi.SendTextAsync(appId, openId, $"正在准备图片，请等待...");
+                            //var iWantToRun = skAiHandler
+                            //                    .IWantTo()
+                            //                    .ConfigModel(ConfigModel.ImageGeneration, openId, "dalle")
+                            //                    .BuildKernel();
+
+                            //var dallE = iWantToRun.Kernel.GetService<IImageGeneration>();
+                            //var imageUrl = await dallE.GenerateImageAsync(messageTypeResult.Result, 256, 256);
+                            //_ = CustomApi.SendTextAsync(appId, openId, $"正在准备图片，请等待...");
 
                             try
                             {

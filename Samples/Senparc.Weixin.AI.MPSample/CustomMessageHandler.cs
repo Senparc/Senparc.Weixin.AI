@@ -2,6 +2,7 @@
 using Senparc.AI.Kernel.Handlers;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.MessageQueue;
+using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.App.AppStore;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Entities.Request;
@@ -75,20 +76,29 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                 {
                     if (messageContext.StorageData as string == "Chatting")
                     {
+                        SenparcTrace.SendCustomLog("Chatting", $"收到消息：{requestMessage.Content}");
+
                         //使用消息队列处理
                         var smq = new SenparcMessageQueue();
                         var smqKey = $"ChatGPT-{OpenId}-{SystemTime.NowTicks}";
                         smq.Add(smqKey, async () =>
                         {
-                            var handler = new SemanticAiHandler();
-                            var factory = new ReponseMessageFactory(ServiceProvider);
-                            var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler);
+                            try {
+                                var handler = new SemanticAiHandler();
+                                var factory = new ReponseMessageFactory(ServiceProvider);
+                                var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler);
 
-                            if (responseMessage is ResponseMessageText textResponse)
-                            {
-                                //使用客服消息
-                                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(_appId, OpenId, textResponse.Content);
+                                if (responseMessage is ResponseMessageText textResponse)
+                                {
+                                    //使用客服消息
+                                    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(_appId, OpenId, textResponse.Content);
+                                }
                             }
+                            catch (Exception ex)
+                            {
+                                SenparcTrace.SendCustomLog("Chatting Exception", $"ex:{ex.Message},stack:{ex.StackTrace}");
+                            }
+                            
                         });
 
                         return base.CreateResponseMessage<ResponseMessageNoResponse>();

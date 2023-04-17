@@ -64,7 +64,7 @@ namespace Senparc.Weixin.AI.Tests
             await Console.Out.WriteLineAsync("RETURN: " + responseMessageType.Result);
             await Console.Out.WriteLineAsync();
 
-            text = "Create a logo picture with black ground, looks like a plan, show it's power.";
+            text = "Create a logo picture with black ground, looks like a plane, show it's power.";
             await Console.Out.WriteLineAsync("ASK: " + text);
             responseMessageType = await factory.GetResponseMessagResultAsync(handler, openId, text);
             Assert.IsNotNull(responseMessageType);
