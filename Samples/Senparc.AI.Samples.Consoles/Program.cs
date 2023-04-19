@@ -4,10 +4,12 @@ using Senparc.AI.Interfaces;
 using Senparc.AI.Kernel;
 using Senparc.AI.Samples.Consoles;
 using Senparc.CO2NET;
+using Senparc.CO2NET.RegisterServices;
 using System.Reflection.Emit;
 
 var configBuilder = new ConfigurationBuilder();
-configBuilder.AddJsonFile("appsettings.json", false, false);
+var appsettingsJsonFileName = SampleHelper.GetAppSettingsFile();//"appsettings.json"
+configBuilder.AddJsonFile(appsettingsJsonFileName, false, false);
 Console.WriteLine("完成 appsettings.json 添加");
 
 var config = configBuilder.Build();
@@ -23,13 +25,19 @@ config.GetSection("SenparcAiSetting").Bind(senparcAiSetting);
 var services = new ServiceCollection();
 services.AddScoped<IAiHandler, SemanticAiHandler>();
 services.AddScoped<ChatSample>();
+services.AddSenparcGlobalServices(config);
+
 
 var serviceProvider = services.BuildServiceProvider();
+
+IRegisterService register = RegisterService.Start(senparcSetting)
+              .UseSenparcGlobal()
+              .UseSenparcAI(senparcAiSetting);
 
 
 Console.WriteLine("请输入序号，开始对应功能测试：");
 Console.WriteLine("[1] GPT对话机器人");
-//Console.WriteLine("[2] 训练 Embedding 任务");
+Console.WriteLine("[2] 训练 Embedding 任务");
 var index = Console.ReadLine();
 switch (index)
 {
@@ -38,6 +46,13 @@ switch (index)
             //对话机器人 Sample
             var chatSample = serviceProvider.GetRequiredService<ChatSample>();
             await chatSample.RunAsync();
+        }
+        break;
+    case "2":
+        {
+            //Embedding
+            var embeddingSample = serviceProvider.GetRequiredService<EmbeddingSample>();
+            await embeddingSample.RunAsync();
         }
         break;
     default:
