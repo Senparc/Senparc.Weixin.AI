@@ -13,6 +13,7 @@ using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.AI.Entities;
 using Senparc.Weixin.AI.WeixinSkills;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
 using System;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,15 @@ namespace Senparc.Weixin.AI
 
         public async Task<string> GetResponseMessageByPlanAsync(IAiHandler aiHandler, string openId, string text)
         {
+            //判断 OpenAI 是否已配置
+            if (!Senparc.AI.Config.SenparcAiSetting.IsOpenAiKeysSetted)
+            {
+                //如果没有配置 OpenAI，则始终使用文字消息
+                return nameof(ResponseMessageText);
+            }
+
+            //已经配置了 OpenAI，根据用户消息的提示，进行判断
+
             var skAiHandler = aiHandler as Senparc.AI.Kernel.SemanticAiHandler;
             var iWantToRun = skAiHandler
                              .IWantTo()
