@@ -1,5 +1,4 @@
-﻿using Microsoft.SemanticKernel.AI.ImageGeneration;
-using Microsoft.SemanticKernel.CoreSkills;
+﻿using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Orchestration;
 using Senparc.AI;
 using Senparc.AI.Exceptions;
@@ -10,16 +9,13 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.AI.Entities;
 using Senparc.Weixin.AI.WeixinSkills;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.AI
@@ -140,10 +136,7 @@ namespace Senparc.Weixin.AI
         /// <param name="appId"></param>
         /// <param name="messageHandler"></param>
         /// <param name="requestMessage"></param>
-        /// <param name="messageEntityEnlightener"></param>
         /// <param name="aiHandler"></param>
-        /// <param name="platformType"></param>
-        /// <param name="text"></param>
         /// <returns></returns>
         public async Task<IResponseMessageBase> GetResponseMessageAsync(string appId, IMessageHandlerBase messageHandler, IRequestMessageText requestMessage, IAiHandler aiHandler)
         {
