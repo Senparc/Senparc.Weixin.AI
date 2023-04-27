@@ -8,11 +8,13 @@ using Senparc.AI.Kernel.Handlers;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.NeuChar;
+using Senparc.NeuChar.ApiHandlers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.AI.Entities;
 using Senparc.Weixin.AI.WeixinSkills;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.Entities;
 using System;
 using System.IO;
@@ -270,6 +272,27 @@ namespace Senparc.Weixin.AI
                     goto case ResponseMsgType.Text;
             }
             return responseMessage;
+        }
+
+        /// <summary>
+        /// 根据 ResposeMessage 类型自动发送客服消息
+        /// </summary>
+        /// <param name="responseMessage"></param>
+        /// <returns></returns>
+        public async Task SendCustomMessageAsync(IResponseMessageBase responseMessage, ApiEnlightener apiEnlightener, string appId, string openId)
+        {
+            //使用客服消息
+            if (responseMessage is ResponseMessageText textResponse)
+            {
+                await apiEnlightener.SendText(appId, openId, textResponse.Content);
+
+                //等效于：
+                //await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(_appId, OpenId, textResponse.Content);
+            }
+            else if (responseMessage is ResponseMessageImage imageResponse)
+            {
+                await apiEnlightener.SendImage(appId, openId, imageResponse.Image.MediaId);
+            }
         }
     }
 }

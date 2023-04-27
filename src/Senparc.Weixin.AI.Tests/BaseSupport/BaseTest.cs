@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.AI;
 using Moq;
+using Senparc.AI.Kernel;
 
 namespace Senparc.Weixin.AI.Tests.BaseSupport
 {

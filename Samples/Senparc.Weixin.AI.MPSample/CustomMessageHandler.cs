@@ -83,22 +83,18 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                         var smqKey = $"ChatGPT-{OpenId}-{SystemTime.NowTicks}";
                         smq.Add(smqKey, async () =>
                         {
-                            try {
+                            try
+                            {
                                 var handler = new SemanticAiHandler();
                                 var factory = new ReponseMessageFactory(ServiceProvider);
                                 var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler);
-
-                                if (responseMessage is ResponseMessageText textResponse)
-                                {
-                                    //使用客服消息
-                                    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(_appId, OpenId, textResponse.Content);
-                                }
+                                await factory.SendCustomMessageAsync(responseMessage, ApiEnlightener, _appId, OpenId);
                             }
                             catch (Exception ex)
                             {
                                 SenparcTrace.SendCustomLog("Chatting Exception", $"ex:{ex.Message},stack:{ex.StackTrace}");
                             }
-                            
+
                         });
 
                         return base.CreateResponseMessage<ResponseMessageNoResponse>();
