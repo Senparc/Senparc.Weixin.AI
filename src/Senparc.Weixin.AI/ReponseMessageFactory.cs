@@ -53,7 +53,7 @@ namespace Senparc.Weixin.AI
 
             //var ask = "I want to know which program language is the best one?";
 
-            var request = iWantToRun.CreateRequest(text, true, false, planner["CreatePlan"]);
+            var request = iWantToRun.CreateRequest(text, true, planner["CreatePlan"]);
             var originalPlan = await iWantToRun.RunAsync(request);
 
             var plannResult = originalPlan.Result.Variables.ToPlan().PlanString;
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.AI
             string messageType = "UnKnow";
             while (!executionResults.Variables.ToPlan().IsComplete && step < maxSteps)
             {
-                var stepRequest = iWantToRun.CreateRequest(executionResults.Variables, false, false, planner["ExecutePlan"]);
+                var stepRequest = iWantToRun.CreateRequest(executionResults.Variables, false, planner["ExecutePlan"]);
                 var results = (await iWantToRun.RunAsync(stepRequest)).Result;
                 if (results.Variables.ToPlan().IsSuccessful)
                 {
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.AI
 
             //var ask = "I want to know which program language is the best one?";
 
-            var request = iWantToRun.CreateRequest(text, true, false, skillList.Values.ToArray()/*planner["CreatePlan"]*/);
+            var request = iWantToRun.CreateRequest(text, true, skillList.Values.ToArray()/*planner["CreatePlan"]*/);
             var result = await iWantToRun.RunAsync(request);
 
             ResponseMessageResult messageType = null;
