@@ -1,10 +1,12 @@
 ﻿using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Orchestration;
 using Senparc.AI;
+using Senparc.AI.Entities;
 using Senparc.AI.Exceptions;
 using Senparc.AI.Interfaces;
 using Senparc.AI.Kernel;
 using Senparc.AI.Kernel.Handlers;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.NeuChar;
@@ -17,8 +19,10 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.Entities;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.AI
@@ -108,13 +112,41 @@ namespace Senparc.Weixin.AI
             return messageType;
         }
 
-        public async Task<ResponseMessageResult> GetResponseMessagResultAsync(IAiHandler aiHandler, string openId, string text)
+        public static ConcurrentDictionary<string, IWantToRun> iWantToRunCollection = new ConcurrentDictionary<string, IWantToRun>();
+
+        public async Task<ResponseMessageResult> GetResponseMessagResultAsync(IAiHandler aiHandler, string openId, string text, bool isChat)
         {
             var skAiHandler = aiHandler as Senparc.AI.Kernel.SemanticAiHandler;
-            var iWantToRun = skAiHandler
+
+            IWantToRun iWantToRun = null;
+
+            if (iWantToRunCollection.ContainsKey(openId))
+            {
+
+                iWantToRun = iWantToRunCollection[openId];
+            }
+            else
+            {
+                if (isChat)
+                {
+                    var parameter = new PromptConfigParameter()
+                    {
+                        MaxTokens = 2000,
+                        Temperature = 0.7,
+                        TopP = 0.5,
+                    };
+                    var chatConfig = skAiHandler.ChatConfig(parameter, userId: "User-" + openId);
+                    iWantToRun = chatConfig.iWantToRun;
+                }
+                else
+                {
+                    iWantToRun = skAiHandler
                              .IWantTo()
                              .ConfigModel(ConfigModel.TextCompletion, openId, "text-davinci-003")
                              .BuildKernel();
+                }
+
+            }
 
             var dir = System.IO.Directory.GetCurrentDirectory();
             await Console.Out.WriteLineAsync("dir:" + dir);
@@ -127,7 +159,30 @@ namespace Senparc.Weixin.AI
             //var ask = "I want to know which program language is the best one?";
 
             var request = iWantToRun.CreateRequest(text, true, skillList.Values.ToArray()/*planner["CreatePlan"]*/);
-            var result = await iWantToRun.RunAsync(request);
+
+            string history = null;
+            if (isChat)
+            {
+                //历史记录
+                //初始化对话历史（可选）
+                if (!request.GetStoredContext("history", out history))
+                {
+                    request.SetStoredContext("history", "");
+                }
+
+                //本次记录
+                request.SetStoredContext("human_input", text);
+                request.RequestContent = null;
+            }
+
+            SenaprcContentAiResult result = await iWantToRun.RunAsync(request);
+
+            if (isChat)
+            {
+                //记录对话历史（可选）
+                request.SetStoredContext("history", history + $"\nHuman: {text}\nBot: {request.RequestContent}");
+            }
+
 
             ResponseMessageResult messageType = null;
             if (result.Output.Length > 0)
@@ -142,6 +197,31 @@ namespace Senparc.Weixin.AI
             return messageType;
         }
 
+        private async Task<SenparcAiResult> WeixinChat(IWantToRun iWantToRun, string prompt)
+        {
+            var request = iWantToRun.CreateRequest(true);
+
+            //历史记录
+            //初始化对话历史（可选）
+            if (!request.GetStoredContext("history", out var history))
+            {
+                request.SetStoredContext("history", "");
+            }
+
+            //本次记录
+            request.SetStoredContext("human_input", prompt);
+
+            var newRequest = request with { RequestContent = null };
+
+            //运行
+            var aiResult = await iWantToRun.RunAsync(newRequest);
+
+            //记录对话历史（可选）
+            request.SetStoredContext("history", history + $"\nHuman: {prompt}\nBot: {request.RequestContent}");
+
+            return aiResult;
+        }
+
         /// <summary>
         /// 获取相应信息
         /// </summary>
@@ -150,11 +230,11 @@ namespace Senparc.Weixin.AI
         /// <param name="requestMessage"></param>
         /// <param name="aiHandler"></param>
         /// <returns></returns>
-        public async Task<IResponseMessageBase> GetResponseMessageAsync(string appId, IMessageHandlerBase messageHandler, IRequestMessageText requestMessage, IAiHandler aiHandler)
+        public async Task<IResponseMessageBase> GetResponseMessageAsync(string appId, IMessageHandlerBase messageHandler, IRequestMessageText requestMessage, IAiHandler aiHandler, bool isChat)
         {
             var skAiHandler = aiHandler as SemanticAiHandler;
             var openId = messageHandler.WeixinOpenId;
-            ResponseMessageResult messageTypeResult = await GetResponseMessagResultAsync(aiHandler, openId, requestMessage.Content);
+            ResponseMessageResult messageTypeResult = await GetResponseMessagResultAsync(aiHandler, openId, requestMessage.Content, isChat);
 
             IResponseMessageBase responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, messageTypeResult.MessageType, messageHandler.MessageEntityEnlightener);
 
@@ -188,7 +268,7 @@ namespace Senparc.Weixin.AI
 
                             //var dallE = iWantToRun.Kernel.GetService<IImageGeneration>();
                             //var imageUrl = await dallE.GenerateImageAsync(messageTypeResult.Result, 256, 256);
-                            //_ = CustomApi.SendTextAsync(appId, openId, $"正在准备图片，请等待...");
+                            _ = CustomApi.SendTextAsync(appId, openId, $"正在准备图片，请等待...");
 
                             try
                             {
@@ -217,9 +297,17 @@ namespace Senparc.Weixin.AI
                                 //File.Copy(file, newFile);
                                 #endregion
 
-                                var newFile = CO2NET.Utilities.ServerUtility.DllMapPath("~/test.png");
+                                var newFile = CO2NET.Utilities.ServerUtility.DllMapPath("~/test.png")
+                                                .Replace(@"\\Mac\Develop & Data\", @"Y:\");
+
+                                //await CustomApi.SendTextAsync(appId, openId, $"new file:" + newFile);
+
+                                //await CustomApi.SendTextAsync(appId, openId, $"new file exist:" + File.Exists(newFile));
+
                                 //上传到微信素材库
                                 var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, Weixin.MP.UploadMediaFileType.image, newFile);
+
+                                //await CustomApi.SendTextAsync(appId, openId, $"result:"+uploadResult.ToJson(true));
 
                                 await CustomApi.SendImageAsync(appId, openId, uploadResult.media_id);
 

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <ToUserName><![CDATA[gh_0fe614101343]]></ToUserName>
+<FromUserName><![CDATA[oxRg0uLsnpHjb8o93uVnwMK_WAVw]]></FromUserName>
+<CreateTime>1683452630</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[new file:Y:\Develop & Data\Senparc 项目\Senparc.Weixin.AI\Samples\Senparc.Weixin.AI.MPSample\bin\Release\net6.0\test.png]]></Content>
+<MsgId>24101244339429733</MsgId>
+</xml>

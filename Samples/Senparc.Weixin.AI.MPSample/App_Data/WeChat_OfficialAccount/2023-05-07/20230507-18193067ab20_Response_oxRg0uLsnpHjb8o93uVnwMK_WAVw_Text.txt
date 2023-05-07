@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <ToUserName><![CDATA[gh_0fe614101343]]></ToUserName>
+<FromUserName><![CDATA[oxRg0uLsnpHjb8o93uVnwMK_WAVw]]></FromUserName>
+<CreateTime>1683454761</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[给我画一幅画，一只猪在天上飞]]></Content>
+<MsgId>24101276764871342</MsgId>
+</xml>

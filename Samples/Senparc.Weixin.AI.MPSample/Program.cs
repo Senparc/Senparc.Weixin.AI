@@ -1,3 +1,6 @@
+using Senparc.AI.Kernel;
+using Senparc.Weixin;
+using Senparc.Weixin.AI;
 using Senparc.Weixin.AI.MPSample;
 using Senparc.Weixin.AspNet;
 using Senparc.Weixin.MP;
@@ -6,7 +9,6 @@ using Senparc.Weixin.RegisterServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 //使用本地缓存必须添加
 builder.Services.AddMemoryCache();
 
@@ -14,6 +16,12 @@ builder.Services.AddMemoryCache();
 
 //Senparc.Weixin 注册（必须）
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
+
+#endregion
+
+#region 添加 Senparc.Weixin.AI（一行代码）
+
+builder.Services.AddSenparcWeixinAI(builder.Configuration);
 
 #endregion
 
@@ -43,6 +51,8 @@ app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageH
 });
 
 #endregion
+
+
 
 
 app.MapGet("/", () => "欢迎使用 Senparc.AI + Senparc.Weixin !");
