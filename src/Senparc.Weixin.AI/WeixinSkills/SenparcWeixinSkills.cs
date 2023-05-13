@@ -21,24 +21,34 @@ namespace Senparc.Weixin.AI.WeixinSkills
 
         private const string BUILD_RESPONSE_MESSAGE_DEFINITION = @"Determine the type of message and result that should be returned based on the input information.
 
-There are two types of message:
-- ResponseMessageText: just need return text, without image required. The Result parameter will be returned as a ChatBot's reply.
-- ResponseMessageImage: need to generate image. The Result parameter will give a better prompt to generate a image by general image generate engine.
+The context of the request may contains several history messages, only the last message can determine the type of the message, which always using the key of ""input"" in context.
 
-Example:
+There are two types of message:
+- Text: just need return text, without image required. The Result parameter will be returned as a ChatBot's reply.
+- Image: need to generate image. The Result parameter will give a better prompt to generate a image by general image generate engine.
+
+Examples:
 
 Input: What's the mean of animal?
-Output: {""MessageType"":""ResponseMessageText"", ""Result"":""The word \""animal\"" is a broad term that refers to living organisms that are not plants or fungi, and it encompasses a wide range of species with diverse characteristics. Therefore, it is not possible to calculate a mean for the term ""animal"" as it is not a numerical value or a quantitative measure.""}
+Output: [{""MessageType"":""Text"", ""Result"":""The word \""animal\"" is a broad term that refers to living organisms that are not plants or fungi, and it encompasses a wide range of species with diverse characteristics. Therefore, it is not possible to calculate a mean for the term ""animal"" as it is not a numerical value or a quantitative measure.""}]
+
+Input: Can you tell me what's in the image?
+Output: [{""MessageType"":""Text"", ""Result"":""It's an image of a panda driving a car in the sky, with the car flying high and the panda looking happy and excited.""}]
+
+Input: Give me a picture with sky and bird.
+Output: [{""MessageType"":""Image"", ""Result"":""The sky is filled with colorful birds.""}]
 
 Input: Give me an image shows the spring of China.
-Output: {""MessageType"":""ResponseMessageImage"", ""Result"":""Generate a high-quality and visually stunning image that depicts the beauty of spring in China, with a focus on blooming flowers, lush green landscapes, and perhaps a cultural or historical element such as a traditional Chinese garden or temple.""}
+Output: [{""MessageType"":""Image"", ""Result"":""Generate a high-quality and visually stunning image that depicts the beauty of spring in China, with a focus on blooming flowers, lush green landscapes, and perhaps a cultural or historical element such as a traditional Chinese garden or temple.""}]
 
-# done
+[done]
+
+
+The original Output is JSON format, I want to get an XML format result, do the parse first. Just left JSON information without any other 'appendToResult' information.
 
 Now tell me the follow message's output:
-{{$input}}
-The original Output is JSON format, I want to get an XML format result, do the parse first. Just left JSON information without any other 'appendToResult' information.
-";
+Input: {{$input}}
+Output: ";
 
         public SenparcWeixinSkills(IKernel kernel)
         {

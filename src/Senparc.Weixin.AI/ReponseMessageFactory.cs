@@ -1,4 +1,5 @@
-﻿using Microsoft.SemanticKernel.CoreSkills;
+﻿using Microsoft.SemanticKernel.AI.ImageGeneration;
+using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Orchestration;
 using Senparc.AI;
 using Senparc.AI.Entities;
@@ -20,6 +21,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.Entities;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -29,7 +31,12 @@ namespace Senparc.Weixin.AI
 {
     public class ReponseMessageFactory
     {
+
+        public static ConcurrentDictionary<string, IWantToRun> iWantToRunCollection = new ConcurrentDictionary<string, IWantToRun>();
+
         IServiceProvider ServiceProvider { get; set; }
+
+
 
         public ReponseMessageFactory(IServiceProvider serviceProvider)
         {
@@ -112,7 +119,6 @@ namespace Senparc.Weixin.AI
             return messageType;
         }
 
-        public static ConcurrentDictionary<string, IWantToRun> iWantToRunCollection = new ConcurrentDictionary<string, IWantToRun>();
 
         public async Task<ResponseMessageResult> GetResponseMessagResultAsync(IAiHandler aiHandler, string openId, string text, bool isChat)
         {
@@ -134,6 +140,7 @@ namespace Senparc.Weixin.AI
                         MaxTokens = 2000,
                         Temperature = 0.7,
                         TopP = 0.5,
+                        StopSequences = new List<string> { "[done]" }
                     };
                     var chatConfig = skAiHandler.ChatConfig(parameter, userId: "User-" + openId);
                     iWantToRun = chatConfig.iWantToRun;
@@ -250,6 +257,8 @@ namespace Senparc.Weixin.AI
                     break;
                 case ResponseMsgType.Image:
                     {
+                        var useDallE = true;
+
                         var response = (IResponseMessageImage)responseMessage;
                         //调用 DallE 接口，并上传图片
 
@@ -262,63 +271,96 @@ namespace Senparc.Weixin.AI
 
                             _ = CustomApi.SendTextAsync(appId, openId, "图片Prompt：" + messageTypeResult.Result);
 
-                            //var iWantToRun = skAiHandler
-                            //                    .IWantTo()
-                            //                    .ConfigModel(ConfigModel.ImageGeneration, openId, "dalle")
-                            //                    .BuildKernel();
-
-                            //var dallE = iWantToRun.Kernel.GetService<IImageGeneration>();
-                            //var imageUrl = await dallE.GenerateImageAsync(messageTypeResult.Result, 256, 256);
                             _ = CustomApi.SendTextAsync(appId, openId, $"正在准备图片，请等待...");
 
-                            try
+
+                            if (useDallE)
                             {
-                                #region DallE 需要直接使用 OpenAI 接口，需要在中国外使用
+                                var iWantToRun = skAiHandler
+                                                    .IWantTo()
+                                                    .ConfigModel(ConfigModel.ImageGeneration, openId, "dalle")
+                                                    .BuildKernel();
 
-                                //var ms = new MemoryStream();
-                                //var downloadFile = Senparc.CO2NET.HttpUtility.Get.DownloadAsync(ServiceProvider, imageUrl, ms);
-                                //ms.Seek(0, SeekOrigin.Begin);
+                                var dallE = iWantToRun.Kernel.GetService<IImageGeneration>();
+                                var imageUrl = await dallE.GenerateImageAsync(messageTypeResult.Result, 256, 256);
+                                try
+                                {
+                                    #region DallE 默认需要直接使用 OpenAI 接口，需要在中国外使用
 
+                                    await CustomApi.SendTextAsync(appId, openId, @$"图片已生成，URL:{imageUrl}
+正在保存至本地，并上传到微信服务器，然后才能展示在窗口中。");
 
-                                ////缓存在本地
-                                //var fileDir = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath($"~/App_Data/OpenAiImageTemp");
-                                ////确认文件夹存在
-                                //Senparc.CO2NET.Helpers.FileHelper.TryCreateDirectory(fileDir);
+                                    var ms = new MemoryStream();
+                                    var downloadFile = Senparc.CO2NET.HttpUtility.Get.DownloadAsync(ServiceProvider, imageUrl, ms);
+                                    ms.Seek(0, SeekOrigin.Begin);
+                                    ms.Position = 0;
 
-                                //var file = Path.Combine(fileDir, $"{SystemTime.Now.ToString("yyyyMMdd-HH-mm-ss")}_{openId}_{SystemTime.NowTicks}.jpg");
+                                    //缓存在本地
+                                    var fileDir = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath($"~/App_Data/OpenAiImageTemp")
+                                    .Replace(@"\\Mac\Develop & Data\", @"Y:\");//Mac 本地测试才需要
 
-                                //using (var fs = new FileStream(file, FileMode.OpenOrCreate))
-                                //{
-                                //    await ms.CopyToAsync(fs);
-                                //    await fs.FlushAsync();
-                                //}
+                                    //确认文件夹存在
+                                    Senparc.CO2NET.Helpers.FileHelper.TryCreateDirectory(fileDir);
 
-                                ////创建一个副本，防止被占用
-                                //var newFile = file + ".jpg";
-                                //File.Copy(file, newFile);
-                                #endregion
+                                    var file = Path.Combine(fileDir, $"{SystemTime.Now.ToString("yyyyMMdd-HH-mm-ss")}_{openId}_{SystemTime.NowTicks}.jpg");
 
-                                var newFile = CO2NET.Utilities.ServerUtility.DllMapPath("~/test.png")
-                                                .Replace(@"\\Mac\Develop & Data\", @"Y:\");
+                                    using (var fs = new FileStream(file, FileMode.OpenOrCreate))
+                                    {
+                                        await ms.CopyToAsync(fs);
+                                        await ms.FlushAsync();
+                                        await fs.FlushAsync();
+                                    }
 
-                                //await CustomApi.SendTextAsync(appId, openId, $"new file:" + newFile);
+                                    //创建一个副本，防止被占用
+                                    var newFile = file + ".jpg";
+                                    File.Copy(file, newFile);
+                                    #endregion
 
-                                //await CustomApi.SendTextAsync(appId, openId, $"new file exist:" + File.Exists(newFile));
+                                    //await CustomApi.SendTextAsync(appId, openId, $"new file:" + newFile);
 
-                                //上传到微信素材库
-                                var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, Weixin.MP.UploadMediaFileType.image, newFile);
+                                    //await CustomApi.SendTextAsync(appId, openId, $"new file exist:" + File.Exists(newFile));
 
-                                //await CustomApi.SendTextAsync(appId, openId, $"result:"+uploadResult.ToJson(true));
+                                    //上传到微信素材库
+                                    var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, MP.UploadMediaFileType.image, newFile, 500000);
 
-                                await CustomApi.SendImageAsync(appId, openId, uploadResult.media_id);
+                                    //await CustomApi.SendTextAsync(appId, openId, $"result:" + uploadResult.ToJson(true));
 
-                                //删除临时文件
-                                File.Delete(newFile);
+                                    await CustomApi.SendImageAsync(appId, openId, uploadResult.media_id);
+
+                                    //删除临时文件
+                                    File.Delete(newFile);
+                                }
+                                catch (Exception ex)
+                                {
+                                    new SenparcAiException(ex.Message, ex);
+                                    await CustomApi.SendTextAsync(appId, openId, $"图片生成失败！");
+                                }
+
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                new SenparcAiException(ex.Message, ex);
-                                await CustomApi.SendTextAsync(appId, openId, $"图片生成失败！");
+                                try
+                                {
+                                    var newFile = CO2NET.Utilities.ServerUtility.DllMapPath("~/test.png")
+                                             .Replace(@"\\Mac\Develop & Data\", @"Y:\");
+
+                                    //await CustomApi.SendTextAsync(appId, openId, $"new file:" + newFile);
+
+                                    //await CustomApi.SendTextAsync(appId, openId, $"new file exist:" + File.Exists(newFile));
+
+                                    //上传到微信素材库
+                                    var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, MP.UploadMediaFileType.image, newFile, 500000);
+
+                                    //await CustomApi.SendTextAsync(appId, openId, $"result:" + uploadResult.ToJson(true));
+
+                                    await CustomApi.SendImageAsync(appId, openId, uploadResult.media_id);
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    new SenparcAiException(ex.Message, ex);
+                                    await CustomApi.SendTextAsync(appId, openId, $"图片生成失败！");
+                                }
                             }
 
                             //预计会超过时间，直接返回文本信息

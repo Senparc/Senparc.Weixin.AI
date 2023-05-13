@@ -69,6 +69,9 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                         messages.CleanMessage();
                         await _cache.SetAsync(cacheKey, messages, TimeSpan.FromHours(1));
                         responseMessage.Content = "Chat 准备就绪，请开始对话！";
+
+                        //TODO：清空 Senparc.AI 层面的对话
+                        ReponseMessageFactory.iWantToRunCollection.TryRemove(OpenId, out _);
                         return responseMessage;
                     });
                     return result.Unwrap().GetAwaiter().GetResult() as IResponseMessageBase;
@@ -100,7 +103,7 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                             {
                                 var handler = new SemanticAiHandler();
                                 var factory = new ReponseMessageFactory(ServiceProvider);
-                                var isChat = true; 
+                                var isChat = true;
                                 var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler, isChat);
                                 await factory.SendCustomMessageAsync(responseMessage, ApiEnlightener, _appId, OpenId);
                             }
