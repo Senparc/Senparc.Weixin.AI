@@ -67,3 +67,4 @@ obj/
 *.user
 /Samples/Senparc.AI.Samples.Consoles/appsettings.test.json
 /Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-07
+/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-13
