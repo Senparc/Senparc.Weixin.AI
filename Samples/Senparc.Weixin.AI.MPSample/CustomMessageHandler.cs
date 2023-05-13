@@ -100,7 +100,8 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                             {
                                 var handler = new SemanticAiHandler();
                                 var factory = new ReponseMessageFactory(ServiceProvider);
-                                var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler, false);
+                                var isChat = true; 
+                                var responseMessage = await factory.GetResponseMessageAsync(_appId, this, requestMessage, handler, isChat);
                                 await factory.SendCustomMessageAsync(responseMessage, ApiEnlightener, _appId, OpenId);
                             }
                             catch (Exception ex)

@@ -137,6 +137,7 @@ namespace Senparc.Weixin.AI
                     };
                     var chatConfig = skAiHandler.ChatConfig(parameter, userId: "User-" + openId);
                     iWantToRun = chatConfig.iWantToRun;
+                    iWantToRunCollection[openId] = iWantToRun;
                 }
                 else
                 {
