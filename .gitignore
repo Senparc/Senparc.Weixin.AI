@@ -66,3 +66,4 @@ obj/
 /Samples/Senparc.Weixin.AI.MPSample/Properties/ServiceDependencies/SenparcWeixinAIMPSample20230409175131 - Web Deploy
 *.user
 /Samples/Senparc.AI.Samples.Consoles/appsettings.test.json
+/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-07

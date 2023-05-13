@@ -56,7 +56,7 @@ namespace Senparc.Weixin.AI.Tests
 
             var text = "I want to know which program language is the best one?";
             await Console.Out.WriteLineAsync("ASK: " + text);
-            var responseMessageType = await factory.GetResponseMessagResultAsync(handler, openId, text);
+            var responseMessageType = await factory.GetResponseMessagResultAsync(handler, openId, text, false);
             Assert.IsNotNull(responseMessageType);
             Assert.AreEqual(ResponseMsgType.Text, responseMessageType.MessageType);
             Assert.IsFalse(responseMessageType.Result.IsNullOrEmpty());
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.AI.Tests
 
             text = "Create a logo picture with black ground, looks like a plane, show it's power.";
             await Console.Out.WriteLineAsync("ASK: " + text);
-            responseMessageType = await factory.GetResponseMessagResultAsync(handler, openId, text);
+            responseMessageType = await factory.GetResponseMessagResultAsync(handler, openId, text, false);
             Assert.IsNotNull(responseMessageType);
             Assert.AreEqual(ResponseMsgType.Image, responseMessageType.MessageType);
             Assert.IsFalse(responseMessageType.Result.IsNullOrEmpty());

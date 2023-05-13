@@ -1,4 +1,7 @@
-﻿using Senparc.AI.Kernel;
+﻿using Microsoft.SemanticKernel.CoreSkills;
+using Microsoft.SemanticKernel.Orchestration;
+using Senparc.AI;
+using Senparc.AI.Kernel;
 using Senparc.AI.Kernel.Handlers;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.MessageQueue;
@@ -10,6 +13,8 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.MessageHandlers;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.AI.MPSample
 {
@@ -75,6 +80,11 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                     responseMessage.Content = "ChatGPT 对话状态已退出，后续聊天不会消耗额度。";
                     return responseMessage;
                 })
+                .Regex(@"plan (?<plan>[\.\s\S\w\W]+)", () =>
+                {
+                    RunPlan(requestMessage);
+                    return base.CreateResponseMessage<ResponseMessageNoResponse>();
+                })
                 .Default(async () =>
                 {
                     if (messageContext.StorageData as string == "Chatting")
@@ -117,5 +127,87 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
             responseMessage.Content = DEFAULT_MESSAGE;
             return responseMessage;
         }
+
+        #region 任务处理
+
+        private void RunPlan(RequestMessageText requestMessage)
+        {
+            //使用消息队列处理
+            var smq = new SenparcMessageQueue();
+            var smqKey = $"Plan-{OpenId}-{SystemTime.NowTicks}";
+            smq.Add(smqKey, async () =>
+            {
+
+                var planText = Regex.Match(requestMessage.Content, @"plan (?<plan>[\.\s\S\w\W]+)").Groups["plan"].Value;
+
+                await base.ApiEnlightener.SendText(this._appId, OpenId, "你正准备发送一条计划，正在生成：" + planText);
+
+                //var _semanticAiHandler = base.ServiceProvider.GetService<SemanticAiHandler>();
+                var _semanticAiHandler = new SemanticAiHandler();
+
+                var iWantToRun = _semanticAiHandler
+                       .IWantTo()
+                       .ConfigModel(ConfigModel.TextCompletion, OpenId, "text-davinci-003")
+                       .BuildKernel();
+
+                var planner = iWantToRun.ImportSkill(new PlannerSkill(iWantToRun.Kernel)).skillList;
+
+                var dir = System.IO.Directory.GetCurrentDirectory();
+
+                var skillsDirectory = Path.Combine(dir, "skills");
+
+                iWantToRun.ImportSkillFromDirectory(skillsDirectory, "SummarizeSkill");
+                iWantToRun.ImportSkillFromDirectory(skillsDirectory, "WriterSkill");
+
+                var promptText = $@"Generate 5 steps maximum:
+
+{planText}
+";
+
+                var request = iWantToRun.CreateRequest(planText, planner["CreatePlan"]);
+
+                var originalPlan = await iWantToRun.RunAsync(request);
+
+                //await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync()
+                var appId =
+                await base.ApiEnlightener.SendText(this._appId, OpenId, "计划生成完毕，正在执行");
+
+                var planResult = originalPlan.Result.Variables.ToPlan().PlanString;
+
+                var executionResults = originalPlan.Result;
+
+                int step = 1;
+                int maxSteps = 10;
+                while (!executionResults.Variables.ToPlan().IsComplete && step < maxSteps)
+                {
+                    var stepRequest = iWantToRun.CreateRequest(executionResults.Variables, false, planner["ExecutePlan"]);
+                    var results = (await iWantToRun.RunAsync(stepRequest)).Result;
+                    if (results.Variables.ToPlan().IsSuccessful)
+                    {
+                        if (results.Variables.ToPlan().IsComplete)
+                        {
+                            await base.ApiEnlightener.SendText(_appId, OpenId, "结果已生成：");
+
+                            await base.ApiEnlightener.SendText(_appId, OpenId, results.Variables.ToPlan().Result);
+
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        SenparcTrace.SendCustomLog("OpenAI Plan", results.LastException?.Message);
+                        Console.WriteLine("Error Message:" + results.LastException?.Message);
+                        Console.WriteLine(results.Variables.ToPlan().Result);
+                        break;
+                    }
+
+                    executionResults = results;
+                    step++;
+                    Console.WriteLine("");
+                }
+            });
+        }
+
+        #endregion
     }
 }
