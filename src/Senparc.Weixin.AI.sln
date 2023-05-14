@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.AI", "Senparc.Weixin.AI\Senparc.Weixin.AI.csproj", "{2C89E390-4133-4075-B6FC-ABD40A00440C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.AI.Tests", "Senparc.Weixin.AI.Tests\Senparc.Weixin.AI.Tests.csproj", "{1719DB29-76FB-4070-90CA-749F0CE0CA59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{52CD3E2F-D7FA-458F-A0DF-FF69F3684AA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.AI.MP", "Senparc.Weixin.AI.MP\Senparc.Weixin.AI.MP.csproj", "{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{3C3E6E36-B891-473C-98E0-9FD0AA2EDF45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.AI.MPSample", "..\Samples\Senparc.Weixin.AI.MPSample\Senparc.Weixin.AI.MPSample.csproj", "{A2BE7677-9E6D-4519-9198-83C73C3AD95E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Test|Any CPU = Test|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{2C89E390-4133-4075-B6FC-ABD40A00440C}.Test|Any CPU.Build.0 = Test|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59}.Test|Any CPU.Build.0 = Test|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8F4238-F92D-42C3-867C-7C22B38DA7C4}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E}.Test|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1719DB29-76FB-4070-90CA-749F0CE0CA59} = {52CD3E2F-D7FA-458F-A0DF-FF69F3684AA0}
+		{A2BE7677-9E6D-4519-9198-83C73C3AD95E} = {3C3E6E36-B891-473C-98E0-9FD0AA2EDF45}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E892F45B-7C63-4C1C-9F53-ABA5CBFA95C6}
+	EndGlobalSection
+EndGlobal

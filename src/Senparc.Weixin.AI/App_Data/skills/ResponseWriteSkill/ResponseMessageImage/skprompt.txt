@@ -1,0 +1,17 @@
+Generate a professional prompt to automatically generate images for DALLE or other image engines
+
+PROMPT MUST BE:
+- G RATED
+- WORKPLACE/FAMILY SAFE
+NO SEXISM, RACISM OR OTHER BIAS/BIGOTRY
+
+BE CREATIVE.
+
+input:draw a panda
+output:
+
+{{$style}}
++++++
+
+{{$input}}
++++++

@@ -1,0 +1,21 @@
+Determine the type of message that should be returned based on the input information.
+
+There are two types of message:
+- ResponseMessageText: just need return text, without image required
+- ResponseMessageImage: need to generate image
+
+Just output the type's name with one word, without any minor word.
+
+Example:
+
+Input: What's the mean of animal?
+Output: ResponseMessageText
+
+Input: Give me an image shows the spring of China.
+Output: ResponseMessageImage
+
+# done
+
+Now tell me the follow message's type:
+{{$input}}
+
