@@ -55,7 +55,7 @@ steps:
     arguments: '--configuration Release'
 
 - task: NuGetCommand@2
-  displayName: Senparc.AI -V0
+  displayName: Senparc.Weixin.AI -V0
   inputs:
     command: push
     packagesToPush: '**/Senparc.Weixin.AI.0.*.nupkg'
