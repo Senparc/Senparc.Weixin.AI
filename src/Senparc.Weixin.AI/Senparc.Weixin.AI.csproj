@@ -20,6 +20,7 @@
 		<Owners>Senparc</Owners>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<ProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</ProjectUrl>
+		<PackageIcon>icon.jpg</PackageIcon>
 		<Title>Senparc.Weixin.AI.dll</Title>
 		<Summary>Senparc.Weixin SDK 的 AI 扩展</Summary>
 		<PackageProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</PackageProjectUrl>
@@ -36,6 +37,9 @@
 		<OutputPath>..\..\BuildOutPut\</OutputPath>
 		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.AI.xml</DocumentationFile>
 	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json" />
 	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt" />
