@@ -9,10 +9,16 @@ Example:
 Input: What's the mean of animal?
 Output: {"MessageType":"Text", "Result":"The word \"animal\" is a broad term that refers to living organisms that are not plants or fungi, and it encompasses a wide range of species with diverse characteristics. Therefore, it is not possible to calculate a mean for the term "animal" as it is not a numerical value or a quantitative measure."}
 
+Input: Can you tell me what's in the image?
+Output: [{""MessageType"":""Text"", ""Result"":""It's an image of a panda driving a car in the sky, with the car flying high and the panda looking happy and excited.""}]
+
+Input: Create me a picture with sky and birds.
+Output: [{""MessageType"":""Image"", ""Result"":""The sky is filled with colorful birds.""}]
+
 Input: Give me an image shows the spring of China.
 Output: {"MessageType":"Image", "Result":"Generate a high-quality and visually stunning image that depicts the beauty of spring in China, with a focus on blooming flowers, lush green landscapes, and perhaps a cultural or historical element such as a traditional Chinese garden or temple."}
 
-# done
+[done]
 
 Now tell me the follow message's output:
 {{$input}}

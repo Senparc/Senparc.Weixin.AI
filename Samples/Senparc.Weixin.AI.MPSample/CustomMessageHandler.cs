@@ -31,7 +31,9 @@ q - 退出聊天
 
 ===开源地址===
 Senparc.AI模块：https://github.com/Senparc/Senparc.AI
-微信SDK：https://github.com/JeffreySu/WeiXinMPSDK";
+Senparc.Weixin.AI：https://github.com/Senparc/Senparc.Weixin.AI
+微信SDK：https://github.com/JeffreySu/WeiXinMPSDK
+";
 
         private readonly IBaseObjectCacheStrategy _cache;
         private string GetCacheKey(string openId) => $"SenparcAI-Chat-{openId}";
@@ -70,7 +72,7 @@ Senparc.AI模块：https://github.com/Senparc/Senparc.AI
                         await _cache.SetAsync(cacheKey, messages, TimeSpan.FromHours(1));
                         responseMessage.Content = "Chat 准备就绪，请开始对话！";
 
-                        //TODO：清空 Senparc.AI 层面的对话
+                        //清空 Senparc.AI 层面的对话
                         ReponseMessageFactory.iWantToRunCollection.TryRemove(OpenId, out _);
                         return responseMessage;
                     });
