@@ -55,19 +55,15 @@ bin/
 obj/
 .user
 /BuildOutPut
-/src/Senparc.AI.Kernel.Tests/appsettings.test.json
 .DS_Store
 /src/Senparc.Weixin.AI.Tests/appsettings.test.json
 /Samples/Senparc.Weixin.AI.MPSample/appsettings.test.json
 /Samples/Senparc.Weixin.AI.MPSample/appsettings.json
 /Samples/Senparc.Weixin.AI.MPSample/App_Data/SenparcTraceLog
-/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-04-09
 /Samples/Senparc.Weixin.AI.MPSample/Properties/PublishProfiles
 /Samples/Senparc.Weixin.AI.MPSample/Properties/ServiceDependencies/SenparcWeixinAIMPSample20230409175131 - Web Deploy
 *.user
 /Samples/Senparc.AI.Samples.Consoles/appsettings.test.json
-/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-07
-/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-13
 /Samples/Senparc.Weixin.AI.MPSample/App_Data/OpenAiImageTemp
-/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/2023-05-15
 /Samples/Senparc.Weixin.AI.MPSample/App_Data/NeuChar
+/Samples/Senparc.Weixin.AI.MPSample/App_Data/WeChat_OfficialAccount/
