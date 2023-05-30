@@ -36,8 +36,6 @@ namespace Senparc.Weixin.AI
 
         IServiceProvider ServiceProvider { get; set; }
 
-
-
         public ReponseMessageFactory(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
@@ -68,7 +66,7 @@ namespace Senparc.Weixin.AI
             var skillsDirectory = Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/skills");/* Path.Combine(dir, "..", "..", "..", "skills");*/
             await Console.Out.WriteLineAsync("skillsDirectory:" + skillsDirectory);
             //var skillList = iWantToRun.ImportSkillFromDirectory(skillsDirectory, "ResponseChooseSkill").skillList;
-            iWantToRun.ImportSkill(new SenparcWeixinSkills(iWantToRun.Kernel), "BuildResponseMessage");
+            //iWantToRun.ImportSkill(new SenparcWeixinSkills(iWantToRun.Kernel), "BuildResponseMessage");
 
             //var ask = "I want to know which program language is the best one?";
 
