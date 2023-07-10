@@ -33,9 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.5.8" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.18.10.6" />
-    <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.5.7" />
+    <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.6" />
+    
+    <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.6" />
   </ItemGroup>
 
   <ItemGroup>
