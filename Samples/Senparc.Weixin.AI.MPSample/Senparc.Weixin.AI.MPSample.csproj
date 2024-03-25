@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt" />
     <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt" />
@@ -13,7 +11,6 @@
     <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt" />
     <None Remove="test.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -31,15 +28,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.5.8" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.18.10.6" />
-    <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="0.8.5.7" />
+    <PackageReference Include="Senparc.Weixin.AspNet" Version="1.1.1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.20.5" />
+    <PackageReference Include="Senparc.Weixin.MP.Middleware" Version="1.1.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Senparc.Weixin.AI\Senparc.Weixin.AI.csproj" />
   </ItemGroup>
-
 </Project>
