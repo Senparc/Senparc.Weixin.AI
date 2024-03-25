@@ -1,105 +1,94 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<Version>0.1.2-beta1</Version>
-		<Nullable>enable</Nullable>
-		<LangVersion>10.0</LangVersion>
-		<AssemblyName>Senparc.Weixin.AI</AssemblyName>
-		<RootNamespace>Senparc.Weixin.AI</RootNamespace>
-		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-		<Description>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>0.1.3-beta1</Version>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Senparc.Weixin.AI</AssemblyName>
+    <RootNamespace>Senparc.Weixin.AI</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
+    <Authors>Jeffrey Su</Authors>
+    <Description>
 			Senparc.Weixin SDK 的 AI 扩展，赋能微信各生态应用应用基于 OpenAI API、ChatGPT 等 AIGC 能力。包括：公众号、小程序、企业微信、微信支付等平台。
 			https://github.com/Senparc/Senparc.Weixin.AI
 		</Description>
-		<Copyright>Senparc Copyright © 2004~2023</Copyright>
-		<PackageTags>
+    <PackageTags>
 			AI,微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,AIGC,AGI,LLM,emantic-kernel
 		</PackageTags>
-		<Authors>Jeffrey Su</Authors>
-		<Owners>Senparc</Owners>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<ProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</ProjectUrl>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<Title>Senparc.Weixin.AI.dll</Title>
-		<Summary>Senparc.Weixin SDK 的 AI 扩展</Summary>
-		<PackageProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</PackageProjectUrl>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<PackageReleaseNotes>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Senparc/Senparc.Weixin.AI</RepositoryUrl>
+    <LangVersion>10.0</LangVersion>
+    <Copyright>Senparc Copyright © 2004~2023</Copyright>
+    <Owners>Senparc</Owners>
+    <ProjectUrl>https://github.com/Senparc/Senparc.Weixin.AI</ProjectUrl>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <Title>Senparc.Weixin.AI.dll</Title>
+    <Summary>Senparc.Weixin SDK 的 AI 扩展</Summary>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageReleaseNotes>
 			v0.1.0 创世
 			v0.1.1 提供 ReponseMessageFactory 等基础设施，完成使用 GPT 判断用户对话意图
 			v0.1.2 优化 ReponseMessageFactory，当 OpenAI 未配置时，始终以文字方式返回
 		</PackageReleaseNotes>
-		<RepositoryUrl>https://github.com/Senparc/Senparc.Weixin.AI</RepositoryUrl>
-		<Configurations>Debug;Release;Test</Configurations>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<OutputPath>..\..\BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.AI.xml</DocumentationFile>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json" />
-	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt" />
-	  <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt" />
-	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json" />
-	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt" />
-	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json" />
-	  <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt" />
-	  <None Remove="test.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="test.png">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup>
-
-		<!--<PackageReference Include="Senparc.AI" Version="0.1.1-beta1" />
+    <Configurations>Debug;Release;Test</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <OutputPath>..\..\BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\netstandard2.1\Senparc.Weixin.AI.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json" />
+    <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt" />
+    <None Remove="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt" />
+    <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json" />
+    <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt" />
+    <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json" />
+    <None Remove="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt" />
+    <None Remove="test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.20230409-01.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseChooseSkill\ResponseMessageChoose\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageImage\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\skills\ResponseWriteSkill\ResponseMessageText\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\icon.jpg" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--<PackageReference Include="Senparc.AI" Version="0.1.1-beta1" />
 
 		<PackageReference Include="Senparc.AI.Kernel" Version="0.1.3-beta1" />-->
-
-		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-
-		<PackageReference Include="Senparc.AI" Version="0.2.1-beta1" />
-
-		<PackageReference Include="Senparc.AI.Kernel" Version="0.2.1-beta1" />
-
-		<PackageReference Include="Senparc.NeuChar" Version="2.1.3.6" />
-
-
-		<!--<PackageReference Include="Senparc.NeuChar" Version="2.1.3.6" />-->
-
-		<PackageReference Include="Senparc.Weixin" Version="6.15.8.7" />
-
-		<PackageReference Include="Senparc.Weixin.MP" Version="16.18.10.6" />
-
-		<!--<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />-->
-	</ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Senparc.AI" Version="0.14.0" />
+    <PackageReference Include="Senparc.AI.Kernel" Version="0.14.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="2.4.0" />
+    <!--<PackageReference Include="Senparc.NeuChar" Version="2.1.3.6" />-->
+    <PackageReference Include="Senparc.Weixin" Version="6.17.1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.20.5" />
+    <!--<PackageReference Include="Microsoft.SemanticKernel" Version="0.9.61.1-preview" />-->
+  </ItemGroup>
 </Project>
